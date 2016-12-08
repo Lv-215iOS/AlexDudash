@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         if userIsTypingNow {
         let textCurrentlyInDisplay = displayResult.text!
         displayResult.text = textCurrentlyInDisplay + number
+            ////
         }
         else
         {
