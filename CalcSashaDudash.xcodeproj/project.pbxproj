@@ -505,6 +505,7 @@
 				254737531DF8131500518714 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		254737541DF8131500518714 /* Build configuration list for PBXNativeTarget "CalcSashaDudashTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +514,7 @@
 				254737561DF8131500518714 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		254737571DF8131500518714 /* Build configuration list for PBXNativeTarget "CalcSashaDudashUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +523,7 @@
 				254737591DF8131500518714 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

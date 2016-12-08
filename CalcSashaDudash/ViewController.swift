@@ -10,15 +10,27 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    @IBOutlet weak var displayResult: UILabel!
+  
+    var userIsTypingNow = false
+    
+    @IBAction func touchSomeNumber(_ sender: UIButton) {
+        
+        let number = sender.currentTitle!
+        
+        if userIsTypingNow {
+        let textCurrentlyInDisplay = displayResult.text!
+        displayResult.text = textCurrentlyInDisplay + number
+        }
+        else
+        {
+            displayResult.text = number
+        }
+        userIsTypingNow = true
+        
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+ 
 
 
 }
