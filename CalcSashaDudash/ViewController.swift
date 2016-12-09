@@ -10,18 +10,19 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
     @IBOutlet weak var displayResult: UILabel!
-  
-    var userIsTypingNow = false
+    
+    private var userIsTypingNow = false
     
     @IBAction func touchSomeNumber(_ sender: UIButton) {
         
         let number = sender.currentTitle!
         
         if userIsTypingNow {
-        let textCurrentlyInDisplay = displayResult.text!
-        displayResult.text = textCurrentlyInDisplay + number
-            ////
+            let textCurrentlyInDisplay = displayResult.text!
+            displayResult.text = textCurrentlyInDisplay + number
+            
         }
         else
         {
@@ -31,8 +32,33 @@ class ViewController: UIViewController {
         
         
     }
- 
-
-
+    
+    private var showValue : Double {
+        get {
+            return Double(displayResult.text!)!
+        }
+        set {
+            displayResult.text = String(newValue)
+        }
+    }
+    
+    private var calculation = CalculatorItSelf()
+    
+    @IBAction func doSomeOfTheOperations(_ sender: UIButton) {
+        if userIsTypingNow {
+            calculation.setOperand(operand: showValue)
+        }
+        userIsTypingNow = false
+        if let mathematicalSymbol = sender.currentTitle{
+            calculation.performOperation(symbol: mathematicalSymbol)
+        }
+        showValue = calculation.result
+        
+    }
+    
+    
 }
+
+
+
 
