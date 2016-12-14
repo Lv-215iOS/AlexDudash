@@ -8,24 +8,24 @@
 
 import UIKit
 
-protocol OutpuInterfaceProtocol{
+protocol OutpuInterface{
     
-    func outputResult()
+ func outputResult()
     
 }
 
 
 
-class OutputController : UIViewController, OutpuInterfaceProtocol {
+class OutputController : UIViewController, OutpuInterface {
 
     @IBOutlet weak var displayResult: UILabel!
     
     func outputResult() {
         
     }
-    
+ 
     //
-    var mainCalculatorController : CalculatorController? = nil
+    var mainCalculatorController : OutpuInterface? = nil
 
 
 }

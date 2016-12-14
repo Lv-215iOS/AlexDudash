@@ -39,14 +39,16 @@ class CalculatorController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "OutputControllerEmbedSegue" {
-            outputController = segue.destination as? OutputController                //swift casting
-            outputController?.mainCalculatorController = self
+            outputController = segue.destination as? OutputController
+            // outputController?.mainCalculatorController = self
         } else if segue.identifier == "InputControllerEmbedSegue"{
             inputController = segue.destination as?InputController
-            inputController?.mainCalculatorController = self
+            inputController?.buttonDidPress = { [unowned self] operation in
+                self.buttonDidPress(operation: operation)
+            }
         }
         
-        }
+    }
     
     func digitPressed (operation : String){
         
@@ -54,7 +56,7 @@ class CalculatorController: UIViewController {
             self.outputController?.displayResult.text! = (self.outputController?.displayResult.text!)! + operation
         }
         else{
-        self.outputController?.displayResult?.text = operation
+            self.outputController?.displayResult?.text = operation
         }
         userIsTypingRightNow = true
         
@@ -62,10 +64,10 @@ class CalculatorController: UIViewController {
     
     func binaryOperationPressed (operation : String){
         if userIsTypingRightNow {
-        
-        calculatorBrain.digit(value: currentInput)
-        calculatorBrain.saveBinaryOperationSymbol(symbol: operation)
-        userIsTypingRightNow = false
+            
+            calculatorBrain.digit(value: currentInput)
+            calculatorBrain.saveBinaryOperationSymbol(symbol: operation)
+            userIsTypingRightNow = false
         }
     }
     
@@ -81,11 +83,31 @@ class CalculatorController: UIViewController {
         
     }
     
+    func buttonDidPress(operation: String) {
+        switch operation {
+        case "1" : digitPressed(operation: operation)
+        case "2" : digitPressed(operation: operation)
+        case "3" : digitPressed(operation: operation)
+        case "4" : digitPressed(operation: operation)
+        case "5" : digitPressed(operation: operation)
+        case "6" : digitPressed(operation: operation)
+        case "7" : digitPressed(operation: operation)
+        case "8" : digitPressed(operation: operation)
+        case "9" : digitPressed(operation: operation)
+        case "0" : digitPressed(operation: operation)
+        case "=" : equalPressed(operation: operation)
+        case "-" : binaryOperationPressed(operation: operation)
+        case "+" : binaryOperationPressed(operation: operation)
+        case "×" : binaryOperationPressed(operation: operation)
+        case "÷" : binaryOperationPressed(operation: operation)
+      
+        default : break
+        }
+        
+    }
+    
+    
     
 }
-
-
-
-
 
 

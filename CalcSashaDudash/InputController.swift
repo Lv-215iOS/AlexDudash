@@ -8,38 +8,28 @@
 
 import UIKit
 
-protocol InputInterfaceProtocol{
-
-
-
+protocol InputInterface {
+    var buttonDidPress: ((_ operation: String)->())? {get set}
 }
 
 
-class InputController : UIViewController , InputInterfaceProtocol{
+class InputController : UIViewController, InputInterface {
     
-    var mainCalculatorController : CalculatorController? = nil
-    
-    //
+    var buttonDidPress: ((String) -> ())? = nil
     
     @IBAction func pressDigit(_ sender: UIButton) {
         
-        mainCalculatorController?.digitPressed (operation : sender.currentTitle! )
+        buttonDidPress?(sender.currentTitle!)
     }
-    
-    
     
     @IBAction func binaryOperationPressed(_ sender: UIButton) {
         
-        mainCalculatorController?.binaryOperationPressed (operation : sender.currentTitle!)
+        buttonDidPress?(sender.currentTitle!)
         
     }
-    
     
     @IBAction func equalOperationPressed(_ sender: UIButton) {
         
-        mainCalculatorController?.equalPressed(operation: sender.currentTitle!)
+        buttonDidPress?(sender.currentTitle!)
     }
-    
-    
-    
 }
