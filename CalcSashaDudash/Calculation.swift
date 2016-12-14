@@ -1,84 +1,108 @@
-//
-//  Calculation.swift
-//  CalcSashaDudash
-//
-//  Created by adminaccount on 12/9/16.
-//  Copyright © 2016 adminaccount. All rights reserved.
-//
-
 import Foundation
 
-class CalculatorItSelf {
+enum BinaryOperation {
+    case Plus
+    case Minus
+    case Mul
+    case Div
+}
+
+enum UnaryOperation {
+    case PlusMinus
+    case SquareRoot
+    case Cos
+    case Sin
+   
+}
+
+enum UtilityOperation {
+    case Equal
+    case Clear
+}
+
+protocol CalculatorBrainInterface {
+    func digit(value: Double)
+    func binary(operation: BinaryOperation)
+    func unary(operation: UnaryOperation)
+    func utility(operation: UtilityOperation)
+    var result: ((Double?, Error?)->())? {get set}
+}
+
+class CalculatorBrain: CalculatorBrainInterface {
+    internal var result: ((Double?, Error?) -> ())?
+
     
-    private var accumulator = 0.0
     
-    func setOperand(operand:Double){
-        accumulator = operand
+    var operandOne: Double?
+    var operandTwo: Double?
+    var currentOperand: Double?
+    var resultValue: Double?
+    var operationSymbol: BinaryOperation?
+    
+    func digit(value: Double) {
+        if operandOne == nil {
+            operandOne = value
+        } else if operandTwo == nil {
+            operandTwo = value
+        }
     }
     
-    private var operations : Dictionary<String,Operation> = [
-        "+" : Operation.BinaryOperation({$0 + $1}),
-        "−" : Operation.BinaryOperation({$0 - $1}),
-        "×" : Operation.BinaryOperation({$0 * $1}),
-        "÷" : Operation.BinaryOperation({$0 / $1}),
-        "±" : Operation.UnaryOperation({-$0}),
-        "=" : Operation.Equals,
-        "√" : Operation.UnaryOperation(sqrt),
-        "π" : Operation.Constant(M_PI),
-        "sin": Operation.UnaryOperation(sin),
-        "cos": Operation.UnaryOperation(cos),
-        ]
-    private enum Operation {
-        case Constant(Double)
-        case UnaryOperation((Double)->Double)
-        case BinaryOperation((Double,Double)->Double)
-        case Equals
+    func binary(operation: BinaryOperation) {
+        switch operation {
+        case .Plus:
+            resultValue = (operandOne ?? 0.0) + (operandTwo ?? 0.0)
+        case .Minus:
+            resultValue = (operandOne ?? 0.0) - (operandTwo ?? 0.0)
+        case .Mul:
+            resultValue = (operandOne ?? 0.0) * (operandTwo ?? 0.0)
+        case .Div:
+            resultValue = (operandOne ?? 0.0) / (operandTwo ?? 0.0)
+     
+        }
+        
+        
     }
     
-    func performOperation(symbol:String){
-        if let operation = operations[symbol]{
-            switch operation {
-            case .Constant(let value):
-                accumulator = value
-            case .UnaryOperation(let function):
-                accumulator = function(accumulator)
-            case .BinaryOperation(let function):
-                executePendingBinaryOperation()
-                pending = PendingBinaryOperationInfo(binaryFunction: function, firstOperand: accumulator)
-            case .Equals:
-                executePendingBinaryOperation()
+    func saveBinaryOperationSymbol(symbol: String){
+        switch symbol {
+        case "+": operationSymbol = BinaryOperation.Plus
+        case "-": operationSymbol = BinaryOperation.Minus
+        case "×": operationSymbol = BinaryOperation.Mul
+        case "÷": operationSymbol = BinaryOperation.Div
+        default: break
+        }
+    }
+    
+    
+    
+    
+    func unary(operation: UnaryOperation) {
+      /*  switch operation {
+        case .sqrt:
+            value = (sqrt (operandOne ?? 0.0 ))
+        case .sin:
+            value = (sin (operandOne ?? 0.0 ))
+        case .cos:
+            value = (cos(operandOne ?? 0.0 ))
+        case .changeSign:
+            value = -(operandOne ?? 0.0)
+     
+        }*/
+        
+    }
+    
+    func utility(operation: UtilityOperation) {
+        switch operation {
+        case .Equal:
+            if operationSymbol != nil {
+                binary(operation: operationSymbol!)
             }
-            
-            
-        }
-        
-        
+        case .Clear:
+            resultValue! = 0.0
+       
     }
     
-    private struct PendingBinaryOperationInfo{
-        var  binaryFunction: (Double,Double)->Double
-        var firstOperand:Double
-    }
     
-    private var pending : PendingBinaryOperationInfo?
-    
-    private func executePendingBinaryOperation(){
-        
-        if pending != nil{
-            accumulator = pending!.binaryFunction(pending!.firstOperand,accumulator)
-            pending=nil
-            
-        }
-        
-        
-    }
-    
-    var result:Double{
-        
-        get{
-            
-            return accumulator
-        }
-    }
-    
+}
+
 }
