@@ -14,7 +14,7 @@ enum UnaryOperation {
     case Sin
    
 }
-
+//
 enum UtilityOperation {
     case Equal
     case Clear
