@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum BinaryOperation : String{
+enum BinaryOperation : String {
     case Plus = "+"
     case Minus = "-"
     case Mul = "*"
@@ -17,14 +17,14 @@ enum BinaryOperation : String{
     case Mod = "%"
 }
 
-enum UtilityOperation : String{
+enum UtilityOperation : String {
     case Dot = "."
     case Equal = "="
     case Clean = "C"
     case AClean = "AC"
 }
 
-enum UnaryOperation : String{
+enum UnaryOperation : String {
     case Sin = "sin"
     case Cos = "cos"
     case Tg = "tg"
@@ -41,34 +41,31 @@ protocol CalcBrainInterface {
     var result: ((Double?, Error?)->())? {get set}
 }
 
-
-
-
-
-
-class CalcModel: NSObject, CalcBrainInterface {
+class CalcModel: CalcBrainInterface {
     static let sharedCalcModel = CalcModel()
     private var inputData = ""
-    private var inputDataArray = [String]() //divide string into math chars
-    private var outputData = [String]() //reverse polish notation in array
-    
+    private var inputDataArray = [String]()
+    private var outputData = [String]()
     func digit(value: Double){
         inputData += String(Int(value
         ))
     }
-    func binary(operation: BinaryOperation){
+    
+    func binary(operation: BinaryOperation) {
         inputData += operation.rawValue
     }
-    func unary(operation: UnaryOperation){
+    
+    func unary(operation: UnaryOperation) {
         inputData += operation.rawValue
         
     }
-    func utility(operation: UtilityOperation){
+    
+    func utility(operation: UtilityOperation) {
         if operation == .Equal {
-            let temp = calculateExpression()
+            let value = calculateExpression()
             
-            result?(temp,nil)
-            inputData = "\(temp)"
+            result?(value, nil)
+            inputData = "\(value)"
             inputDataArray = [String]()
             outputData = [String]()
         } else if operation == .AClean {
@@ -83,15 +80,15 @@ class CalcModel: NSObject, CalcBrainInterface {
             inputData += operation.rawValue
         }
     }
+    
     var result: ((Double?, Error?)->())?
     
-    private func seperateInputData(){ //function divide inputData into math components
-        
+    private func divideInputDataIntoMath() {
         for charachter in inputData.characters {
             if isOperation(at: String(charachter)) {
                 inputDataArray.append(String(charachter))
-            } else if isValue(at: String(charachter)){ //determine if last charachter is number,
-                if inputDataArray.count == 0 {         // if true add next charachter to the same string
+            } else if isValue(at: String(charachter)){
+                if inputDataArray.count == 0 {
                     inputDataArray.append(String(charachter))
                 } else if isValue(at: inputDataArray[inputDataArray.count - 1]) {
                     inputDataArray[inputDataArray.count - 1] += String(charachter)
@@ -99,13 +96,13 @@ class CalcModel: NSObject, CalcBrainInterface {
                     inputDataArray[inputDataArray.count - 1] += String(charachter)
                 } else if (inputDataArray.count > 1) && (isOperationMathOperator(at: inputDataArray[inputDataArray.count - 2]) || isOperation(at: inputDataArray[inputDataArray.count - 2])) && inputDataArray[inputDataArray.count - 1] == "-" {
                     inputDataArray[inputDataArray.count - 1] += String(charachter)
-                }else {
+                } else {
                     inputDataArray.append(String(charachter)) //
                 }
             } else if charachter == "." {
                 inputDataArray[inputDataArray.count - 1] += String(charachter)
             } else if inputDataArray.count != 0 && !trigonometryFunc(at: inputDataArray[inputDataArray.count - 1]) && !isOperation(at: inputDataArray[inputDataArray.count - 1]) {
-                inputDataArray[inputDataArray.count - 1] += String(charachter) // if element of array is not fully written trigonometry func
+                inputDataArray[inputDataArray.count - 1] += String(charachter)
             } else {
                 inputDataArray.append(String(charachter))
             }
@@ -113,19 +110,18 @@ class CalcModel: NSObject, CalcBrainInterface {
         
     }
     
-    private func calculateData(){  //calculate reverse polish notation
-        var stack = [String]() //stack for operators
+    private func calculateData() {
+        var stack = [String]()
         for symbol in inputDataArray{
-            if !isOperation(at: symbol){ //if symbol is number
+            if !isOperation(at: symbol){
                 outputData.append(String(symbol))
-            } else if isOperationMathOperator(at: String(symbol)){ //if symbol is math operation
-                if stack.count == 0 || symbol == "(" { //if stack empty or symbol = (, add symbol
+            } else if isOperationMathOperator(at: String(symbol)){
+                if stack.count == 0 || symbol == "(" {
                     stack.append(String(symbol))
-                } else if priorityBetweenOperators(first: stack.last!, second: symbol) &&  stack.last! != "(" {
-                    //if last operator has higher or same precedence, pop element from stack to outputdata and push symbol
+                } else if priorityBetweenMathOperators(first: stack.last!, second: symbol) &&  stack.last! != "(" {
                     var i = 0
                     for element in stack.reversed() {
-                        if priorityBetweenOperators(first: element, second: symbol) &&  element != "(" {
+                        if priorityBetweenMathOperators(first: element, second: symbol) &&  element != "(" {
                             i+=1
                             outputData.append(String(element))
                         } else {
@@ -137,7 +133,7 @@ class CalcModel: NSObject, CalcBrainInterface {
                 } else {
                     stack.append(String(symbol))
                 }
-            } else if symbol == ")" { //pop all elements until (
+            } else if symbol == ")" { 
                 var i = 0
                 for element in stack.reversed() {
                     if element != "(" {
@@ -159,7 +155,10 @@ class CalcModel: NSObject, CalcBrainInterface {
         
         
     }
-    private func priorityFor(char:String) -> Int{ //determine priority
+    
+    // MARK: - Setting priorities
+    
+    private func priorityFor(char:String) -> Int {
         if char == "+" || char == "-" {
             return 1
         } else if (char == "^") {
@@ -170,44 +169,50 @@ class CalcModel: NSObject, CalcBrainInterface {
         return 2
     }
     
-    private func priorityBetweenOperators(first:String, second:String) -> Bool { //priority between operators
+    private func priorityBetweenMathOperators(first:String, second:String) -> Bool {
         if priorityFor(char: first) >= priorityFor(char: second) {
             return true
         }
         return false
     }
     
-    private func isValue(at char: String) -> Bool{// determine if number
+    // MARK: - Checking
+    
+    //checking if is Number
+    private func isValue(at char: String) -> Bool {
         if !isOperationMathOperator(at: char) && !isOperation(at: char) {
             return true
         }
         return false
     }
-    
-   private func isOperation(at char: String) -> Bool{ //determine if math symbol
+    //checking if is operation
+    private func isOperation(at char: String) -> Bool {
         
         if isOperationMathOperator(at: char) || char == "(" || char == ")" {
             return true
         }
         return false
     }
-    
-    private func trigonometryFunc(at char: String) -> Bool{
+    //checking if is trigonometry or square root
+    private func trigonometryFunc(at char: String) -> Bool {
         if char=="sin" || char=="cos" || char=="tg" || char=="ctg" || char=="sqrt" {
             return true
         }
         return false
     }
-    
-    private func isOperationMathOperator(at char: String) -> Bool{
+    //checking if is Math operation
+    private func isOperationMathOperator(at char: String) -> Bool {
         
         if char=="+" || char=="/" || char=="*" || char=="-" || char == "^" || char == "sin" || char == "cos" || char == "tg" || char == "ctg" || char=="sqrt" {
             return true
         }
         return false
     }
-    func calculateExpression() -> Double { //calculate result of expression
-        self.seperateInputData()
+    
+    // Mark: - Calculate
+    
+    func calculateExpression() -> Double {
+        self.divideInputDataIntoMath()
         self.calculateData()
         var stack =  [Double]()
         for value in outputData {

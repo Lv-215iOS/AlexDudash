@@ -8,11 +8,14 @@
 
 import UIKit
 
+protocol InputInterface {
+    var buttonDidPress: ((_ operation: String)->())? {get set}
+}
 
-class InputViewController: UIViewController {
+
+class InputViewController: UIViewController, InputInterface {
     
-    var mainViewController : CalculatorController? = nil
-    
+    // MARK: - IBOutlets
     @IBOutlet weak var cosButton: UIButton!
     @IBOutlet weak var sinButton: UIButton!
     @IBOutlet weak var tanButton: UIButton!
@@ -20,10 +23,14 @@ class InputViewController: UIViewController {
     @IBOutlet weak var sqrtButton: UIButton!
     @IBOutlet weak var powerButton: UIButton!
     @IBOutlet weak var switchPro: UISwitch!
-   
+    
+    // MARK: - Actions
     @IBAction func buttonPressed(_ sender: UIButton) {
-        mainViewController?.pressedButton(operation: sender.currentTitle!)
+        buttonDidPress?(sender.currentTitle!)
     }
+    
+    var buttonDidPress: ((String) -> ())? = nil
+    
     
     @IBAction func switchProCalc(_ sender: UISwitch) {
         if switchPro.isOn {
@@ -33,7 +40,7 @@ class InputViewController: UIViewController {
             ctgButton.isHidden = false
             sqrtButton.isHidden = false
             powerButton.isHidden = false
-         
+            
         }else {
             cosButton.isHidden = true
             sinButton.isHidden = true
@@ -43,7 +50,7 @@ class InputViewController: UIViewController {
             powerButton.isHidden = true
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.png")!)
@@ -55,10 +62,4 @@ class InputViewController: UIViewController {
         powerButton.isHidden = true
         // Do any additional setup after loading the view.
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }
