@@ -9,7 +9,7 @@
 import UIKit
 
 protocol OutputInterface {
-    func outputInfo(info: String)
+    func output(info: String)
 }
 
 class OutputViewController: UIViewController, OutputInterface{
@@ -17,11 +17,11 @@ class OutputViewController: UIViewController, OutputInterface{
     @IBOutlet weak var labelResult: UILabel!
     
     
-    func outputInfo(info: String){
+    func output(info: String){
         labelResult.text = info
     }
     
-    func appendInfo(info: String){
+    func addInfo(info: String){
         if labelResult.text != nil {
             labelResult.text = labelResult.text! + info
         } else {

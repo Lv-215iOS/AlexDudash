@@ -16,10 +16,9 @@ class CalculatorController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.png")!)
-        calcBrain.result = { (value, error)->() in
+         calcBrain.result = { (value, error)->() in
             if (value != nil) {
-                self.outputController?.outputInfo(info: "\(value!)")
+                self.outputController?.output(info: "\(value!)")
             }
         }
     }
@@ -38,53 +37,53 @@ class CalculatorController: UIViewController {
     
             switch operation {
             case "+":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.binary(operation: .Plus)
             case "-":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.binary(operation: .Minus)
             case "×":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.binary(operation: .Mul)
             case "÷":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.binary(operation: .Div)
             case "%":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.binary(operation: .Mod)
             case "^":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.binary(operation: .Power)
             case "sin":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.unary(operation: .Sin)
             case "cos":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.unary(operation: .Cos)
             case "tg":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.unary(operation: .Tg)
             case "ctg":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.unary(operation: .Ctg)
             case "√":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.unary(operation: .Sqrt)
             case "←":
                 outputController?.deleteLastCharacter()
                 calcBrain.utility(operation: .Clean)
             case ".":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.utility(operation: .Dot)
             case "=":
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.utility(operation: .Equal)
             case "AC":
-                outputController?.outputInfo(info: "")
+                outputController?.output(info: "")
                 calcBrain.utility(operation: .AClean)
 
             default:
-                outputController?.appendInfo(info: operation)
+                outputController?.addInfo(info: operation)
                 calcBrain.digit(value: Double(operation)!)
             }
         

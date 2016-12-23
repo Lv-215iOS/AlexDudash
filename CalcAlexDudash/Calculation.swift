@@ -47,9 +47,9 @@ protocol CalcBrainInterface {
 
 
 class CalcModel: NSObject, CalcBrainInterface {
-    static let sharedCalcModel = CalcModel() //sigleton
+    static let sharedCalcModel = CalcModel()
     private var inputData = ""
-    private var inputDataArray = [String]() //seperate string into math components
+    private var inputDataArray = [String]() //divide string into math chars
     private var outputData = [String]() //reverse polish notation in array
     
     func digit(value: Double){
@@ -65,7 +65,7 @@ class CalcModel: NSObject, CalcBrainInterface {
     }
     func utility(operation: UtilityOperation){
         if operation == .Equal {
-            let temp = CalculateRPN()
+            let temp = calculateExpression()
             
             result?(temp,nil)
             inputData = "\(temp)"
@@ -85,7 +85,7 @@ class CalcModel: NSObject, CalcBrainInterface {
     }
     var result: ((Double?, Error?)->())?
     
-    private func seperateInputData(){ //function seperate inputData into math components
+    private func seperateInputData(){ //function divide inputData into math components
         
         for charachter in inputData.characters {
             if isOperation(at: String(charachter)) {
@@ -97,14 +97,14 @@ class CalcModel: NSObject, CalcBrainInterface {
                     inputDataArray[inputDataArray.count - 1] += String(charachter)
                 } else if (inputDataArray.count == 1 && inputDataArray[inputDataArray.count - 1] == "-"){
                     inputDataArray[inputDataArray.count - 1] += String(charachter)
-                } else if (inputDataArray.count > 1) && (isOperationDM(at: inputDataArray[inputDataArray.count - 2]) || isOperation(at: inputDataArray[inputDataArray.count - 2])) && inputDataArray[inputDataArray.count - 1] == "-" {
+                } else if (inputDataArray.count > 1) && (isOperationMathOperator(at: inputDataArray[inputDataArray.count - 2]) || isOperation(at: inputDataArray[inputDataArray.count - 2])) && inputDataArray[inputDataArray.count - 1] == "-" {
                     inputDataArray[inputDataArray.count - 1] += String(charachter)
                 }else {
                     inputDataArray.append(String(charachter)) //
                 }
             } else if charachter == "." {
                 inputDataArray[inputDataArray.count - 1] += String(charachter)
-            } else if inputDataArray.count != 0 && !isTrigonomenry(at: inputDataArray[inputDataArray.count - 1]) && !isOperation(at: inputDataArray[inputDataArray.count - 1]) {
+            } else if inputDataArray.count != 0 && !trigonometryFunc(at: inputDataArray[inputDataArray.count - 1]) && !isOperation(at: inputDataArray[inputDataArray.count - 1]) {
                 inputDataArray[inputDataArray.count - 1] += String(charachter) // if element of array is not fully written trigonometry func
             } else {
                 inputDataArray.append(String(charachter))
@@ -118,7 +118,7 @@ class CalcModel: NSObject, CalcBrainInterface {
         for symbol in inputDataArray{
             if !isOperation(at: symbol){ //if symbol is number
                 outputData.append(String(symbol))
-            } else if isOperationDM(at: String(symbol)){ //if symbol is math operation
+            } else if isOperationMathOperator(at: String(symbol)){ //if symbol is math operation
                 if stack.count == 0 || symbol == "(" { //if stack empty or symbol = (, add symbol
                     stack.append(String(symbol))
                 } else if priorityBetweenOperators(first: stack.last!, second: symbol) &&  stack.last! != "(" {
@@ -164,7 +164,7 @@ class CalcModel: NSObject, CalcBrainInterface {
             return 1
         } else if (char == "^") {
             return 3
-        } else if isTrigonomenry(at: char) {
+        } else if trigonometryFunc(at: char) {
             return 4
         }
         return 2
@@ -178,35 +178,35 @@ class CalcModel: NSObject, CalcBrainInterface {
     }
     
     private func isValue(at char: String) -> Bool{// determine if number
-        if !isOperationDM(at: char) && !isOperation(at: char) {
+        if !isOperationMathOperator(at: char) && !isOperation(at: char) {
             return true
         }
         return false
     }
     
-    private func isOperation(at char: String) -> Bool{ //determine if math symbol
+   private func isOperation(at char: String) -> Bool{ //determine if math symbol
         
-        if isOperationDM(at: char) || char == "(" || char == ")" {
+        if isOperationMathOperator(at: char) || char == "(" || char == ")" {
             return true
         }
         return false
     }
     
-    private func isTrigonomenry(at char: String) -> Bool{ //determine if trigonometry func
+    private func trigonometryFunc(at char: String) -> Bool{
         if char=="sin" || char=="cos" || char=="tg" || char=="ctg" || char=="sqrt" {
             return true
         }
         return false
     }
     
-    private func isOperationDM(at char: String) -> Bool{ //determine if math operator
+    private func isOperationMathOperator(at char: String) -> Bool{
         
-        if char=="+" || char=="/" || char=="*" || char=="-" || char == "^" || char=="%" || char == "sin" || char == "cos" || char == "tg" || char == "ctg" || char=="sqrt" {
+        if char=="+" || char=="/" || char=="*" || char=="-" || char == "^" || char == "sin" || char == "cos" || char == "tg" || char == "ctg" || char=="sqrt" {
             return true
         }
         return false
     }
-    func CalculateRPN() -> Double { //calculate RPN and return result of expression
+    func calculateExpression() -> Double { //calculate result of expression
         self.seperateInputData()
         self.calculateData()
         var stack =  [Double]()
