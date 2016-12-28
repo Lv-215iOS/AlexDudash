@@ -6,16 +6,16 @@
 //  Copyright © 2016 Sasha Dudash. All rights reserved.
 //
 
+
+
 import UIKit
 
 protocol InputInterface {
     var buttonDidPress: ((_ operation: String)->())? {get set}
 }
 
-
-class InputViewController: UIViewController, InputInterface {
+class InputViewController: UIViewController {
     
-    // MARK: - IBOutlets
     @IBOutlet weak var cosButton: UIButton!
     @IBOutlet weak var sinButton: UIButton!
     @IBOutlet weak var tanButton: UIButton!
@@ -24,7 +24,8 @@ class InputViewController: UIViewController, InputInterface {
     @IBOutlet weak var powerButton: UIButton!
     @IBOutlet weak var switchPro: UISwitch!
     
-    // MARK: - Actions
+    @IBOutlet var buttonsToDisplayAfterSwitch: [UIButton]!
+    
     @IBAction func buttonPressed(_ sender: UIButton) {
         buttonDidPress?(sender.currentTitle!)
     }
@@ -34,32 +35,97 @@ class InputViewController: UIViewController, InputInterface {
     
     @IBAction func switchProCalc(_ sender: UISwitch) {
         if switchPro.isOn {
-            cosButton.isHidden = false
-            sinButton.isHidden = false
-            tanButton.isHidden = false
-            ctgButton.isHidden = false
-            sqrtButton.isHidden = false
-            powerButton.isHidden = false
+            for button in buttonsToDisplayAfterSwitch {
+                
+                button.isHidden = false
+                button.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                UIView.animate(withDuration: 2.0,
+                               delay: 0,
+                               usingSpringWithDamping: 0.2,
+                               initialSpringVelocity: 6.0,
+                               options: .allowUserInteraction,
+                               animations: { [weak self] in
+                                self?.cosButton.transform = .identity
+                    },
+                               completion: nil)
+                UIView.animate(withDuration: 2.0,
+                               delay: 0,
+                               usingSpringWithDamping: 0.2,
+                               initialSpringVelocity: 6.0,
+                               options: .allowUserInteraction,
+                               animations: { [weak self] in
+                                self?.sinButton.transform = .identity
+                    },
+                               completion: nil)
+                UIView.animate(withDuration: 2.0,
+                               delay: 0,
+                               usingSpringWithDamping: 0.2,
+                               initialSpringVelocity: 6.0,
+                               options: .allowUserInteraction,
+                               animations: { [weak self] in
+                                self?.tanButton.transform = .identity
+                    },
+                               completion: nil)
+                UIView.animate(withDuration: 2.0,
+                               delay: 0,
+                               usingSpringWithDamping: 0.2,
+                               initialSpringVelocity: 6.0,
+                               options: .allowUserInteraction,
+                               animations: { [weak self] in
+                                self?.ctgButton.transform = .identity
+                    },
+                               completion: nil)
+                UIView.animate(withDuration: 2.0,
+                               delay: 0,
+                               usingSpringWithDamping: 0.2,
+                               initialSpringVelocity: 6.0,
+                               options: .allowUserInteraction,
+                               animations: { [weak self] in
+                                self?.sqrtButton.transform = .identity
+                    },
+                               completion: nil)
+                UIView.animate(withDuration: 2.0,
+                               delay: 0,
+                               usingSpringWithDamping: 0.2,
+                               initialSpringVelocity: 6.0,
+                               options: .allowUserInteraction,
+                               animations: { [weak self] in
+                                self?.powerButton.transform = .identity
+                    },
+                               completion: nil)
+            }
             
-        }else {
-            cosButton.isHidden = true
-            sinButton.isHidden = true
-            tanButton.isHidden = true
-            ctgButton.isHidden = true
-            sqrtButton.isHidden = true
-            powerButton.isHidden = true
+            
+        } else {
+            for button in buttonsToDisplayAfterSwitch {
+                button.isHidden = true
+            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.png")!)
-        cosButton.isHidden = true
-        sinButton.isHidden = true
-        tanButton.isHidden = true
-        ctgButton.isHidden = true
-        sqrtButton.isHidden = true
-        powerButton.isHidden = true
+        // animation
+        switchPro.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        UIView.animate(withDuration: 2.0,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 6.0,
+                       options: .allowUserInteraction,
+                       animations: { [weak self] in
+                        self?.switchPro.transform = .identity
+            },
+                       completion: nil)
+        
+        for button in buttonsToDisplayAfterSwitch {
+            button.isHidden = true
+        }
         // Do any additional setup after loading the view.
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
 }

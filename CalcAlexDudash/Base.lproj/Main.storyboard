@@ -71,7 +71,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqh-29-DHL">
-                                <rect key="frame" x="0.0" y="0.0" width="321" height="128"/>
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
@@ -79,7 +79,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="labelResult" destination="Wqh-29-DHL" id="0qI-Dp-Raf"/>
@@ -87,7 +87,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i16-62-ckh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="863.1184407796103" y="-120"/>
+            <point key="canvasLocation" x="861.60000000000002" y="-120.53973013493254"/>
         </scene>
         <!--Input View Controller-->
         <scene sceneID="j3N-iW-YsE">
@@ -619,7 +619,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Qlp-cZ-xUO" firstAttribute="leading" secondItem="n0o-Vu-jPK" secondAttribute="leadingMargin" id="ERj-9T-b4K"/>
                             <constraint firstItem="Qlp-cZ-xUO" firstAttribute="top" secondItem="wul-tY-wBC" secondAttribute="bottom" id="Vm9-xI-KHT"/>
@@ -635,6 +635,12 @@
                         <outlet property="sqrtButton" destination="qYC-s7-mrC" id="aEe-bZ-FW4"/>
                         <outlet property="switchPro" destination="3s3-Tn-a8P" id="umS-81-VzB"/>
                         <outlet property="tanButton" destination="tnB-HX-6D2" id="OTV-JJ-OQ4"/>
+                        <outletCollection property="buttonsToDisplayAfterSwitch" destination="qYC-s7-mrC" collectionClass="NSMutableArray" id="YBg-C7-M8Y"/>
+                        <outletCollection property="buttonsToDisplayAfterSwitch" destination="7mk-DM-FoB" collectionClass="NSMutableArray" id="B86-02-NWK"/>
+                        <outletCollection property="buttonsToDisplayAfterSwitch" destination="ONO-wh-1vi" collectionClass="NSMutableArray" id="dpU-Li-Gkc"/>
+                        <outletCollection property="buttonsToDisplayAfterSwitch" destination="tnB-HX-6D2" collectionClass="NSMutableArray" id="9o5-1e-5gM"/>
+                        <outletCollection property="buttonsToDisplayAfterSwitch" destination="FAv-hh-g44" collectionClass="NSMutableArray" id="QwI-C0-K5w"/>
+                        <outletCollection property="buttonsToDisplayAfterSwitch" destination="6aY-Gr-fCV" collectionClass="NSMutableArray" id="JZY-D4-Zpz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mcv-ws-smy" userLabel="First Responder" sceneMemberID="firstResponder"/>

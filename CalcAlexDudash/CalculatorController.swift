@@ -6,6 +6,8 @@
 //  Copyright © 2016 Sasha Dudash. All rights reserved.
 //
 
+
+
 import UIKit
 
 class CalculatorController: UIViewController {
@@ -16,9 +18,17 @@ class CalculatorController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.png")!)
         calcBrain.result = { (value, error)->() in
             if (value != nil) {
-                self.outputController?.output(info: "\(value!)")
+                if value!.isInfinite {
+                    self.outputController?.output(info: "Division by zero")
+                } else if value!.isNaN { self.outputController?.output(info: "Dangerous operation")
+                } else if value == Double(Int(value!)) {
+                    self.outputController?.output(info: "\(Int(value!))")
+                } else {
+                    self.outputController?.output(info: "\(value!)")
+                }
             }
         }
         inputController?.buttonDidPress = { [unowned self] (operation)->() in
@@ -38,7 +48,7 @@ class CalculatorController: UIViewController {
         
         switch operation {
             
-        //binary operations
+        // binary operations
         case "+":
             outputController?.addInfo(info: operation)
             calcBrain.binary(operation: .Plus)
@@ -58,7 +68,7 @@ class CalculatorController: UIViewController {
             outputController?.addInfo(info: operation)
             calcBrain.binary(operation: .Power)
             
-        //unary operations
+        // unary operations
         case "sin":
             outputController?.addInfo(info: operation)
             calcBrain.unary(operation: .Sin)
@@ -75,7 +85,7 @@ class CalculatorController: UIViewController {
             outputController?.addInfo(info: operation)
             calcBrain.unary(operation: .Sqrt)
             
-        //utility operations
+        // utility operations
         case "←":
             outputController?.deleteLastCharacter()
             calcBrain.utility(operation: .Clean)

@@ -6,6 +6,8 @@
 //  Copyright © 2016 Sasha Dudash. All rights reserved.
 //
 
+
+
 import Foundation
 
 enum BinaryOperation : String {
@@ -94,14 +96,14 @@ class CalcModel: CalcBrainInterface {
                     inputDataArray[inputDataArray.count - 1] += String(charachter)
                 } else if (inputDataArray.count == 1 && inputDataArray[inputDataArray.count - 1] == "-"){
                     inputDataArray[inputDataArray.count - 1] += String(charachter)
-                } else if (inputDataArray.count > 1) && (isOperationMathOperator(at: inputDataArray[inputDataArray.count - 2]) || isOperation(at: inputDataArray[inputDataArray.count - 2])) && inputDataArray[inputDataArray.count - 1] == "-" {
+                } else if (inputDataArray.count > 1) && (checkMathOperator(at: inputDataArray[inputDataArray.count - 2]) || isOperation(at: inputDataArray[inputDataArray.count - 2])) && inputDataArray[inputDataArray.count - 1] == "-" {
                     inputDataArray[inputDataArray.count - 1] += String(charachter)
                 } else {
                     inputDataArray.append(String(charachter)) //
                 }
             } else if charachter == "." {
                 inputDataArray[inputDataArray.count - 1] += String(charachter)
-            } else if inputDataArray.count != 0 && !trigonometryFunc(at: inputDataArray[inputDataArray.count - 1]) && !isOperation(at: inputDataArray[inputDataArray.count - 1]) {
+            } else if inputDataArray.count != 0 && !checkTrigonometryFunc(at: inputDataArray[inputDataArray.count - 1]) && !isOperation(at: inputDataArray[inputDataArray.count - 1]) {
                 inputDataArray[inputDataArray.count - 1] += String(charachter)
             } else {
                 inputDataArray.append(String(charachter))
@@ -115,7 +117,7 @@ class CalcModel: CalcBrainInterface {
         for symbol in inputDataArray{
             if !isOperation(at: symbol){
                 outputData.append(String(symbol))
-            } else if isOperationMathOperator(at: String(symbol)){
+            } else if checkMathOperator(at: String(symbol)){
                 if stack.count == 0 || symbol == "(" {
                     stack.append(String(symbol))
                 } else if priorityBetweenMathOperators(first: stack.last!, second: symbol) &&  stack.last! != "(" {
@@ -133,7 +135,7 @@ class CalcModel: CalcBrainInterface {
                 } else {
                     stack.append(String(symbol))
                 }
-            } else if symbol == ")" { 
+            } else if symbol == ")" {
                 var i = 0
                 for element in stack.reversed() {
                     if element != "(" {
@@ -158,19 +160,19 @@ class CalcModel: CalcBrainInterface {
     
     // MARK: - Setting priorities
     
-    private func priorityFor(char:String) -> Int {
+    private func settingPriority(char:String) -> Int {
         if char == "+" || char == "-" {
             return 1
         } else if (char == "^") {
             return 3
-        } else if trigonometryFunc(at: char) {
+        } else if checkTrigonometryFunc(at: char) {
             return 4
         }
         return 2
     }
     
     private func priorityBetweenMathOperators(first:String, second:String) -> Bool {
-        if priorityFor(char: first) >= priorityFor(char: second) {
+        if settingPriority(char: first) >= settingPriority(char: second) {
             return true
         }
         return false
@@ -180,7 +182,7 @@ class CalcModel: CalcBrainInterface {
     
     //checking if is Number
     private func isValue(at char: String) -> Bool {
-        if !isOperationMathOperator(at: char) && !isOperation(at: char) {
+        if !checkMathOperator(at: char) && !isOperation(at: char) {
             return true
         }
         return false
@@ -188,20 +190,20 @@ class CalcModel: CalcBrainInterface {
     //checking if is operation
     private func isOperation(at char: String) -> Bool {
         
-        if isOperationMathOperator(at: char) || char == "(" || char == ")" {
+        if checkMathOperator(at: char) || char == "(" || char == ")" {
             return true
         }
         return false
     }
     //checking if is trigonometry or square root
-    private func trigonometryFunc(at char: String) -> Bool {
+    private func checkTrigonometryFunc(at char: String) -> Bool {
         if char=="sin" || char=="cos" || char=="tg" || char=="ctg" || char=="sqrt" {
             return true
         }
         return false
     }
     //checking if is Math operation
-    private func isOperationMathOperator(at char: String) -> Bool {
+    private func checkMathOperator(at char: String) -> Bool {
         
         if char=="+" || char=="/" || char=="*" || char=="-" || char == "^" || char == "sin" || char == "cos" || char == "tg" || char == "ctg" || char=="sqrt" {
             return true
@@ -233,10 +235,6 @@ class CalcModel: CalcBrainInterface {
                 let rightValue = stack.removeLast()
                 let leftValue = stack.removeLast()
                 stack.append(leftValue / rightValue)
-            case "%":
-                let rightValue = stack.removeLast()
-                let leftValue = stack.removeLast()
-                stack.append(leftValue.truncatingRemainder(dividingBy:rightValue))
             case "^":
                 let rightValue = stack.removeLast()
                 let leftValue = stack.removeLast()
