@@ -6,9 +6,8 @@
 //  Copyright © 2016 Sasha Dudash. All rights reserved.
 //
 
-
-
 import UIKit
+import AVFoundation
 
 protocol InputInterface {
     var buttonDidPress: ((_ operation: String)->())? {get set}
@@ -27,9 +26,11 @@ class InputViewController: UIViewController {
     @IBOutlet var buttonsToDisplayAfterSwitch: [UIButton]!
     
     @IBAction func buttonPressed(_ sender: UIButton) {
+        audioForAllTheButtons.play()
         buttonDidPress?(sender.currentTitle!)
     }
     
+    var audioForAllTheButtons = AVAudioPlayer()
     var buttonDidPress: ((String) -> ())? = nil
     
     
@@ -119,6 +120,14 @@ class InputViewController: UIViewController {
         
         for button in buttonsToDisplayAfterSwitch {
             button.isHidden = true
+        }
+        // audio for buttons
+        do {
+            audioForAllTheButtons = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "button-16", ofType: "wav")!))
+            audioForAllTheButtons.prepareToPlay()
+        }
+        catch {
+            print(error)
         }
         // Do any additional setup after loading the view.
     }

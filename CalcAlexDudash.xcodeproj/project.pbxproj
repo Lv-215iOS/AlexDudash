@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2583C0131E1CE6C000E63B88 /* button-16.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2583C0121E1CE6C000E63B88 /* button-16.wav */; };
 		9C97FCB91E0735380037F01D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C97FCB81E0735380037F01D /* AppDelegate.swift */; };
 		9C97FCBB1E0735380037F01D /* CalculatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C97FCBA1E0735380037F01D /* CalculatorController.swift */; };
 		9C97FCBE1E0735380037F01D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C97FCBC1E0735380037F01D /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2583C0121E1CE6C000E63B88 /* button-16.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "button-16.wav"; path = "../button-16.wav"; sourceTree = "<group>"; };
 		9C97FCB51E0735380037F01D /* CalcAlexDudash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalcAlexDudash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C97FCB81E0735380037F01D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C97FCBA1E0735380037F01D /* CalculatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				9C97FCBF1E0735380037F01D /* Assets.xcassets */,
 				9C97FCC11E0735380037F01D /* LaunchScreen.storyboard */,
 				9C97FCC41E0735380037F01D /* Info.plist */,
+				2583C0121E1CE6C000E63B88 /* button-16.wav */,
 			);
 			path = CalcAlexDudash;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2583C0131E1CE6C000E63B88 /* button-16.wav in Resources */,
 				9C97FCC31E0735380037F01D /* LaunchScreen.storyboard in Resources */,
 				9C97FCC01E0735380037F01D /* Assets.xcassets in Resources */,
 				9C97FCBE1E0735380037F01D /* Main.storyboard in Resources */,
@@ -517,6 +521,7 @@
 				9C97FCDF1E0735380037F01D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9C97FCE01E0735380037F01D /* Build configuration list for PBXNativeTarget "CalcAlexDudashTests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +530,7 @@
 				9C97FCE21E0735380037F01D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9C97FCE31E0735380037F01D /* Build configuration list for PBXNativeTarget "CalcAlexDudashUITests" */ = {
 			isa = XCConfigurationList;
@@ -533,6 +539,7 @@
 				9C97FCE51E0735380037F01D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

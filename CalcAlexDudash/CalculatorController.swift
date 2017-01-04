@@ -25,7 +25,7 @@ class CalculatorController: UIViewController {
                     self.outputController?.output(info: "Division by zero")
                 } else if value!.isNaN { self.outputController?.output(info: "Dangerous operation")
                 } else if value == Double(Int(value!)) {
-                    self.outputController?.output(info: "\(Int(value!))")
+                    self.outputController?.output(info: "\(Int64(value!))")
                 } else {
                     self.outputController?.output(info: "\(value!)")
                 }
@@ -34,6 +34,25 @@ class CalculatorController: UIViewController {
         inputController?.buttonDidPress = { [unowned self] (operation)->() in
             self.pressedButton(operation: operation)
         }
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(CalculatorController.handleSwipes(sender:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(CalculatorController.handleSwipes(sender:)))
+        
+        
+        view.addGestureRecognizer(leftSwipe)
+        view.addGestureRecognizer(rightSwipe)
+        
+        leftSwipe.direction = .left
+        rightSwipe.direction = .right
+    }
+    
+    func handleSwipes(sender : UISwipeGestureRecognizer) {
+        if (sender.direction == .left) {
+            print("swiped left")
+        }
+        if (sender.direction == .right) {
+            print("swiped right")
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
