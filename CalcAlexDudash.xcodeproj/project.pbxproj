@@ -38,7 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2583C0121E1CE6C000E63B88 /* button-16.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "button-16.wav"; path = "../button-16.wav"; sourceTree = "<group>"; };
+		2583C0121E1CE6C000E63B88 /* button-16.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "button-16.wav"; sourceTree = "<group>"; };
 		9C97FCB51E0735380037F01D /* CalcAlexDudash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalcAlexDudash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C97FCB81E0735380037F01D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C97FCBA1E0735380037F01D /* CalculatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorController.swift; sourceTree = "<group>"; };
@@ -82,6 +82,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2583C0141E1CE9E100E63B88 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				2583C0121E1CE6C000E63B88 /* button-16.wav */,
+			);
+			name = "Supporting files";
+			path = ..;
+			sourceTree = "<group>";
+		};
 		9C97FCAC1E0735380037F01D = {
 			isa = PBXGroup;
 			children = (
@@ -114,7 +123,7 @@
 				9C97FCBF1E0735380037F01D /* Assets.xcassets */,
 				9C97FCC11E0735380037F01D /* LaunchScreen.storyboard */,
 				9C97FCC41E0735380037F01D /* Info.plist */,
-				2583C0121E1CE6C000E63B88 /* button-16.wav */,
+				2583C0141E1CE9E100E63B88 /* Supporting files */,
 			);
 			path = CalcAlexDudash;
 			sourceTree = "<group>";

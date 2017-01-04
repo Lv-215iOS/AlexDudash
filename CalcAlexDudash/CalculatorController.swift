@@ -47,10 +47,12 @@ class CalculatorController: UIViewController {
     
     func handleSwipes(sender : UISwipeGestureRecognizer) {
         if (sender.direction == .left) {
-            print("swiped left")
+            self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background2.png")!)
+
         }
         if (sender.direction == .right) {
-            print("swiped right")
+            self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.png")!)
+
         }
         
     }
@@ -122,13 +124,6 @@ class CalculatorController: UIViewController {
             outputController?.addInfo(info: operation)
             calcBrain.digit(value: Double(operation)!)
         }
-        
-        
-        
-        
-        
     }
-    
-    
 }
 
