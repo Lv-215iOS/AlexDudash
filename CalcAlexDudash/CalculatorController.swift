@@ -22,8 +22,8 @@ class CalculatorController: UIViewController {
         calcBrain.result = { (value, error)->() in
             if (value != nil) {
                 if value!.isInfinite {
-                    self.outputController?.output(info: "Division by zero")
-                } else if value!.isNaN { self.outputController?.output(info: "Dangerous operation")
+                    self.outputController?.output(info: "😱")
+                } else if value!.isNaN { self.outputController?.output(info: "😱")
                 } else if value == Double(Int(value!)) {
                     self.outputController?.output(info: "\(Int64(value!))")
                 } else {
