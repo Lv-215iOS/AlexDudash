@@ -9,10 +9,6 @@
 import UIKit
 import AVFoundation
 
-protocol InputInterface {
-    var buttonDidPress: ((_ operation: String)->())? {get set}
-}
-
 class InputViewController: UIViewController {
     
     @IBOutlet weak var cosButton: UIButton!

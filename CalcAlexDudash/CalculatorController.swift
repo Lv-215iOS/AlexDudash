@@ -22,12 +22,12 @@ class CalculatorController: UIViewController {
         calcBrain.result = { (value, error)->() in
             if (value != nil) {
                 if value!.isInfinite {
-                    self.outputController?.output(info: "😱")
-                } else if value!.isNaN { self.outputController?.output(info: "😱")
+                    self.outputController?.outputInfo(info: "😱")
+                } else if value!.isNaN { self.outputController?.outputInfo(info: "😱")
                 } else if value == Double(Int(value!)) {
-                    self.outputController?.output(info: "\(Int64(value!))")
+                    self.outputController?.outputInfo(info: "\(Int64(value!))")
                 } else {
-                    self.outputController?.output(info: "\(value!)")
+                    self.outputController?.outputInfo(info: "\(value!)")
                 }
             }
         }
@@ -48,11 +48,9 @@ class CalculatorController: UIViewController {
     func handleSwipes(sender : UISwipeGestureRecognizer) {
         if (sender.direction == .left) {
             self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background2.png")!)
-
         }
         if (sender.direction == .right) {
-            self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.png")!)
-
+            self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background3.png")!)
         }
         
     }
@@ -117,7 +115,7 @@ class CalculatorController: UIViewController {
             outputController?.addInfo(info: operation)
             calcBrain.utility(operation: .Equal)
         case "AC":
-            outputController?.output(info: "")
+            outputController?.outputInfo(info: "")
             calcBrain.utility(operation: .AClean)
             
         default:

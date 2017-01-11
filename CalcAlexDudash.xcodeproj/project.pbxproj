@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2583C0131E1CE6C000E63B88 /* button-16.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2583C0121E1CE6C000E63B88 /* button-16.wav */; };
+		2583C0341E260DF500E63B88 /* GlobalProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583C0331E260DF500E63B88 /* GlobalProtocols.swift */; };
 		9C97FCB91E0735380037F01D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C97FCB81E0735380037F01D /* AppDelegate.swift */; };
 		9C97FCBB1E0735380037F01D /* CalculatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C97FCBA1E0735380037F01D /* CalculatorController.swift */; };
 		9C97FCBE1E0735380037F01D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C97FCBC1E0735380037F01D /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		2583C0121E1CE6C000E63B88 /* button-16.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "button-16.wav"; sourceTree = "<group>"; };
+		2583C0331E260DF500E63B88 /* GlobalProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalProtocols.swift; sourceTree = "<group>"; };
 		9C97FCB51E0735380037F01D /* CalcAlexDudash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalcAlexDudash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C97FCB81E0735380037F01D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C97FCBA1E0735380037F01D /* CalculatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				9C97FCB81E0735380037F01D /* AppDelegate.swift */,
 				9C97FCEA1E073A760037F01D /* Calculation.swift */,
 				9C97FCBA1E0735380037F01D /* CalculatorController.swift */,
+				2583C0331E260DF500E63B88 /* GlobalProtocols.swift */,
 				9C97FCE81E0738610037F01D /* OutputViewController.swift */,
 				9C97FCE61E0736F20037F01D /* InputViewController.swift */,
 				9C97FCBC1E0735380037F01D /* Main.storyboard */,
@@ -285,6 +288,7 @@
 				9C97FCE91E0738610037F01D /* OutputViewController.swift in Sources */,
 				9C97FCBB1E0735380037F01D /* CalculatorController.swift in Sources */,
 				9C97FCB91E0735380037F01D /* AppDelegate.swift in Sources */,
+				2583C0341E260DF500E63B88 /* GlobalProtocols.swift in Sources */,
 				9C97FCEB1E073A760037F01D /* Calculation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

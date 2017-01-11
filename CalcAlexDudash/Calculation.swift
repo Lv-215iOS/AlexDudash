@@ -6,59 +6,24 @@
 //  Copyright © 2016 Sasha Dudash. All rights reserved.
 //
 
-
-
 import Foundation
 
-enum BinaryOperation : String {
-    case Plus = "+"
-    case Minus = "-"
-    case Mul = "*"
-    case Div = "/"
-    case Power = "^"
-    case Mod = "%"
-}
-
-enum UtilityOperation : String {
-    case Dot = "."
-    case Equal = "="
-    case Clean = "C"
-    case AClean = "AC"
-}
-
-enum UnaryOperation : String {
-    case Sin = "sin"
-    case Cos = "cos"
-    case Tg = "tg"
-    case Ctg = "ctg"
-    case Sqrt = "sqrt"
-}
-
-
-protocol CalcBrainInterface {
-    func digit(value: Double)
-    func binary(operation: BinaryOperation)
-    func unary(operation: UnaryOperation)
-    func utility(operation: UtilityOperation)
-    var result: ((Double?, Error?)->())? {get set}
-}
-
 class CalcModel: CalcBrainInterface {
-    static let sharedCalcModel = CalcModel()
-    private var inputData = ""
+    
+    private var inputArray = ""
     private var inputDataArray = [String]()
-    private var outputData = [String]()
+    private var outputArray = [String]()
     func digit(value: Double){
-        inputData += String(Int(value
+        inputArray += String(Int(value
         ))
     }
     
     func binary(operation: BinaryOperation) {
-        inputData += operation.rawValue
+        inputArray += operation.rawValue
     }
     
     func unary(operation: UnaryOperation) {
-        inputData += operation.rawValue
+        inputArray += operation.rawValue
         
     }
     
@@ -67,26 +32,26 @@ class CalcModel: CalcBrainInterface {
             let value = calculateExpression()
             
             result?(value, nil)
-            inputData = "\(value)"
+            inputArray = "\(value)"
             inputDataArray = [String]()
-            outputData = [String]()
+            outputArray = [String]()
         } else if operation == .AClean {
-            inputData = ""
+            inputArray = ""
             inputDataArray = [String]()
-            outputData = [String]()
+            outputArray = [String]()
         } else if operation == .Clean {
-            inputData.remove(at: inputData.index(before: inputData.endIndex))
+            inputArray.remove(at: inputArray.index(before: inputArray.endIndex))
             inputDataArray = [String]()
-            outputData = [String]()
+            outputArray = [String]()
         } else {
-            inputData += operation.rawValue
+            inputArray += operation.rawValue
         }
     }
     
     var result: ((Double?, Error?)->())?
     
     private func divideInputDataIntoMath() {
-        for charachter in inputData.characters {
+        for charachter in inputArray.characters {
             if isOperation(at: String(charachter)) {
                 inputDataArray.append(String(charachter))
             } else if isValue(at: String(charachter)){
@@ -116,7 +81,7 @@ class CalcModel: CalcBrainInterface {
         var stack = [String]()
         for symbol in inputDataArray{
             if !isOperation(at: symbol){
-                outputData.append(String(symbol))
+                outputArray.append(String(symbol))
             } else if checkMathOperator(at: String(symbol)){
                 if stack.count == 0 || symbol == "(" {
                     stack.append(String(symbol))
@@ -125,7 +90,7 @@ class CalcModel: CalcBrainInterface {
                     for element in stack.reversed() {
                         if priorityBetweenMathOperators(first: element, second: symbol) &&  element != "(" {
                             i+=1
-                            outputData.append(String(element))
+                            outputArray.append(String(element))
                         } else {
                             break
                         }
@@ -140,7 +105,7 @@ class CalcModel: CalcBrainInterface {
                 for element in stack.reversed() {
                     if element != "(" {
                         i += 1
-                        outputData.append(String(element))
+                        outputArray.append(String(element))
                     } else {
                         break
                     }
@@ -152,7 +117,7 @@ class CalcModel: CalcBrainInterface {
             
         }
         for element in stack.reversed() {
-            outputData.append(String(element))
+            outputArray.append(String(element))
         }
         
         
@@ -217,7 +182,7 @@ class CalcModel: CalcBrainInterface {
         self.divideInputDataIntoMath()
         self.calculateData()
         var stack =  [Double]()
-        for value in outputData {
+        for value in outputArray {
             switch value {
             case "+":
                 let rightValue = stack.removeLast()

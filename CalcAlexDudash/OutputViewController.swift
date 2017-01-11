@@ -9,10 +9,6 @@
 
 import UIKit
 
-protocol OutputInterface {
-    func output(info: String)
-}
-
 protocol AdvancedOutputInterface {
     func deleteLastCharacter()
     func addInfo(info: String)
@@ -22,7 +18,7 @@ class OutputViewController: UIViewController, OutputInterface {
     
     @IBOutlet weak var labelResult: UILabel!
     
-    func output(info: String) {
+    func outputInfo(info: String) {
         labelResult.text = info
     }
     
